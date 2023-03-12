@@ -1,10 +1,7 @@
 package web.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "user_db")
@@ -35,6 +32,7 @@ public class User {
 
     @Column(name = "age", nullable = false)
     @Min(value = 1, message = "Age should be greater than 0")
+    @Max(value = 120, message = "Age should be less than 120")
     private byte age;
 
     @Column(name = "email", nullable = false, length = 100)
