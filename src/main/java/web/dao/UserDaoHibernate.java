@@ -24,6 +24,7 @@ public class UserDaoHibernate implements UserDao {
     @Transactional
     public void updateUser(User updateUser) {
         entityManager.merge(updateUser);
+        entityManager.close();
     }
 
     @Override
@@ -32,6 +33,7 @@ public class UserDaoHibernate implements UserDao {
         User user = entityManager.find(User.class, id);
         if (user != null) {
             entityManager.remove(user);
+            entityManager.close();
         }
     }
 
