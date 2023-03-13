@@ -6,16 +6,6 @@ import javax.validation.constraints.*;
 @Entity
 @Table(name = "user_db")
 public class User {
-    public User() {
-    }
-
-    public User(String name, String surName, byte age, String email) {
-        this.name = name;
-        this.surName = surName;
-        this.age = age;
-        this.email = email;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -39,6 +29,16 @@ public class User {
     @NotEmpty(message = "Email should not be empty")
     @Email(message = "Email should be valid")
     private String email;
+
+    public User() {
+    }
+
+    public User(String name, String surName, byte age, String email) {
+        this.name = name;
+        this.surName = surName;
+        this.age = age;
+        this.email = email;
+    }
 
     public int getId() {
         return id;

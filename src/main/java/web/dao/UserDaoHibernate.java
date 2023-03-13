@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public class UserDaoHibernate implements UserDao {
 
-    @PersistenceContext()
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override
@@ -39,6 +39,7 @@ public class UserDaoHibernate implements UserDao {
         return entityManager.createQuery("SELECT user FROM User user", User.class).getResultList();
     }
 
+    @Override
     public User getUserById(int id) {
         return entityManager.find(User.class, id);
     }
