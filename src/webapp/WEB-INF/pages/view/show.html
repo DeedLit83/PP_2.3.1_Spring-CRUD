@@ -5,10 +5,26 @@
   <title>User</title>
 </head>
 <body>
-<p th:text="${user.getId()}">value</p>
-<p th:text="${user.getName()}">value</p>
-<p th:text="${user.getSurName()}">value</p>
-<p th:text="${user.getAge()}">value</p>
-<p th:text="${user.getEmail}">value</p>
+<table border="1">
+  <tr>
+    <td>Id</td>
+    <td th:text="${user.getId()}">Id</td>
+  </tr>
+  <tr>
+    <td>Name</td>
+    <td th:text="${user.getName()}">Name</td>
+  </tr>
+  <tr>
+    <td>Surname</td>
+    <td th:text="${user.getSurName()}">Surname</td>
+  </tr>
+  <td>Age</td>
+    <td th:text="${user.getAge()}">Age</td>
+  </tr>
+  <tr>
+    <td>E-mail</td>
+    <td th:text="${user.getEmail()}">Email</td>
+  </tr>
+</table>
 </body>
 </html>
