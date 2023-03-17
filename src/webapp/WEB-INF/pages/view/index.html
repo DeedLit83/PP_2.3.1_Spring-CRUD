@@ -16,19 +16,19 @@
         <th>Action</th>
     </tr>
     <tr>
-    <tr th:each="user : ${people}">
+    <tr th:each="user : ${users}">
         <td th:utext="${user.getId()}"></td>
         <td th:utext="${user.getName()}"></td>
         <td th:utext="${user.getSurName()}"></td>
         <td th:utext="${user.getAge()}"></td>
         <td th:utext="${user.getEmail()}"></td>
         <td>
-            <form th:method="DELETE" th:action="@{/people/{id}(id=${user.getId()})}">
+            <form th:method="DELETE" th:action="@{/view/{id}(id=${user.getId()})}">
                 <input type="submit" value="Delete">
             </form>
         </td>
         <td>
-            <a th:href="@{/people/{id}/edit(id=${user.getId()})}">Edit</a>
+            <a th:href="@{/view/{id}/edit(id=${user.getId()})}"><button>Edit</button></a>
         </td>
     </tr>
 </table>
@@ -36,25 +36,8 @@
 <br>
 <hr/>
 <h2>Create a new user</h2>
-<form th:method="POST" th:action="@{/people}" th:object="${newUser}">
-    <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-    <br/>
-    <label for="surName">Surname</label>
-    <input type="text" th:field="*{surName}" id="surname"/>
-    <div style="color:red" th:if="${#fields.hasErrors('surName')}" th:errors="*{surName}">Surname Error</div>
-    <br/>
-    <label for="age">Age </label>
-    <input type="text" th:field="*{age}" id="age"/>
-    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</div>
-    <br/>
-    <label for="email">Email</label>
-    <input type="text" th:field="*{email}" id="email"/>
-    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
-    <br/>
-    <br/>
-    <input type="submit" value="Create!"/>
+<form action="/view/new">
+    <button>New User</button>
 </form>
 </body>
 </html>

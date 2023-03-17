@@ -1,63 +1,75 @@
 package web.controller;
 
+import org.dom4j.rule.Mode;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import web.model.User;
+import web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import web.dao.UserDao;
-import web.model.User;
 
 import javax.validation.Valid;
 
-
 @Controller
 public class UserController {
-    private UserDao userDao;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserDao userDao) {
-        this.userDao = userDao;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @ModelAttribute("newUser")
-    public User getPerson(){
-        return new User();
-    }
-    @GetMapping("/people")
-    public String index(Model model){
-        model.addAttribute("people", userDao.getAllUsers());
+    @GetMapping("/view")
+    public String index(Model model) {
+        model.addAttribute("users", userService.getAllUsers());
         return "view/index";
     }
 
-    @PostMapping("/people")
-    public String creat(@ModelAttribute("newUser")@Valid User user,
-                        BindingResult bindingResult,Model model) {
-        if (bindingResult.hasErrors()){
-            model.addAttribute("people", userDao.getAllUsers());
-            return "view/index";
-        }
-        userDao.saveUser(user);
-        return "redirect:/people";
+    @GetMapping("/view/{id}")
+    public String show(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userService.getUserById(id));
+        return "view/show";
     }
 
-    @DeleteMapping("/people/{id}")
-    public String deletePerson(@PathVariable("id") int id){
-        userDao.removeUserById(id);
-        return "redirect:/people";
+    @GetMapping("/view/new")
+    public String newPerson(Model model) {
+        model.addAttribute("user", new User());
+        return "view/new";
     }
-    @GetMapping("/people/{id}/edit")
-    public String edit (@ModelAttribute("id") int id,Model model){
-        model.addAttribute("user", userDao.getUserById(id));
+
+    @PostMapping("/view")
+    public String create(@ModelAttribute("user") @Valid User user,
+                         BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", userService.getAllUsers());
+        }
+        userService.saveUser(user);
+        return "redirect:/view";
+
+    }
+
+    @GetMapping("/view/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("user", userService.getUserById(id));
         return "view/edit";
     }
 
-    @PatchMapping("/people/{id}")
-    public String updatePerson(@ModelAttribute("user")@Valid User updateUser, BindingResult bindingResult){
-        if (bindingResult.hasErrors()){
-            return "view/edit";
+    @PatchMapping("/view/{id}")
+    public String update(@ModelAttribute("user") @Valid User user, @PathVariable("id") int id,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/view/edit";
         }
-        userDao.updateUser(updateUser);
-        return "redirect:/people";
+        System.out.println(user.getId() + " = user id");
+        userService.updateUser(user);
+        return "redirect:/view";
+    }
+
+    @DeleteMapping("/view/{id}")
+    public String delete(@PathVariable("id") int id) {
+        userService.removeUserById(id);
+        return "redirect:/view";
     }
 }

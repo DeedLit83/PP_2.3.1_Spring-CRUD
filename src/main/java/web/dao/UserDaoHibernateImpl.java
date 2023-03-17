@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class UserDaoHibernate implements UserDao {
+public class UserDaoHibernateImpl implements UserDao{
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -22,6 +22,7 @@ public class UserDaoHibernate implements UserDao {
     @Override
     @Transactional
     public void updateUser(User updateUser) {
+        System.out.println(updateUser.getId());
         entityManager.merge(updateUser);
     }
 
@@ -44,3 +45,4 @@ public class UserDaoHibernate implements UserDao {
         return entityManager.find(User.class, id);
     }
 }
+
