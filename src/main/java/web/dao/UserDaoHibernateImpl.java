@@ -22,7 +22,6 @@ public class UserDaoHibernateImpl implements UserDao{
     @Override
     @Transactional
     public void updateUser(User updateUser) {
-        System.out.println(updateUser.getId());
         entityManager.merge(updateUser);
     }
 

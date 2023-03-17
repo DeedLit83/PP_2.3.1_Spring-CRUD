@@ -21,7 +21,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void updateUser(User updateUser) {
-        System.out.println(updateUser.getId() + " upd user");
         userDao.updateUser(updateUser);
     }
 
