@@ -1,16 +1,11 @@
 package web.controller;
 
-import org.dom4j.rule.Mode;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import web.model.User;
 import web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @Controller
 public class UserController {
@@ -40,11 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/view")
-    public String create(@ModelAttribute("user") @Valid User user,
-                         BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("user", userService.getAllUsers());
-        }
+    public String create(@ModelAttribute("user") User user) {
         userService.saveUser(user);
         return "redirect:/view";
 
@@ -57,12 +48,7 @@ public class UserController {
     }
 
     @PatchMapping("/view/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, @PathVariable("id") int id,
-                         BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "/view/edit";
-        }
-        System.out.println(user.getId() + " = user id");
+    public String update(@ModelAttribute("user") User user) {
         userService.updateUser(user);
         return "redirect:/view";
     }
