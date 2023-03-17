@@ -5,6 +5,7 @@
   <title>User</title>
 </head>
 <body>
+<p>Selected User:</p>
 <table border="1">
   <tr>
     <td>Id</td>
@@ -26,5 +27,9 @@
     <td th:text="${user.getEmail()}">Email</td>
   </tr>
 </table>
+<br>
+<form action="/view">
+  <button>Users</button>
+</form>
 </body>
 </html>

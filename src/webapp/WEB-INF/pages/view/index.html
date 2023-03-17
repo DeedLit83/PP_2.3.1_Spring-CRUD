@@ -17,7 +17,7 @@
     </tr>
     <tr>
     <tr th:each="user : ${users}">
-        <td th:utext="${user.getId()}"></td>
+        <td><a th:href="@{/view/{id}(id=${user.getId()})}" th:utext="${user.getId()}"></a></td>
         <td th:utext="${user.getName()}"></td>
         <td th:utext="${user.getSurName()}"></td>
         <td th:utext="${user.getAge()}"></td>
