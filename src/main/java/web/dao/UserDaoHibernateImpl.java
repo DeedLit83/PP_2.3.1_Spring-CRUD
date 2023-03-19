@@ -27,7 +27,7 @@ public class UserDaoHibernateImpl implements UserDao{
 
     @Override
     @Transactional
-    public void removeUserById(int id) {
+    public void removeUserById(Long id) {
         User user = entityManager.find(User.class, id);
         if (user != null) {
             entityManager.remove(user);
@@ -40,7 +40,7 @@ public class UserDaoHibernateImpl implements UserDao{
     }
 
     @Override
-    public User getUserById(int id) {
+    public User getUserById(Long id) {
         return entityManager.find(User.class, id);
     }
 }
