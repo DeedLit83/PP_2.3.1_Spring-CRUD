@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/view/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
+    public String show(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         return "view/show";
     }
@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/view/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
+    public String edit(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.getUserById(id));
         return "view/edit";
     }
@@ -54,7 +54,7 @@ public class UserController {
     }
 
     @DeleteMapping("/view/{id}")
-    public String delete(@PathVariable("id") int id) {
+    public String delete(@PathVariable("id") Long id) {
         userService.removeUserById(id);
         return "redirect:/view";
     }

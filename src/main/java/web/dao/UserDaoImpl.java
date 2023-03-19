@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class UserDaoHibernateImpl implements UserDao{
+public class UserDaoImpl implements UserDao{
 
     @PersistenceContext
     private EntityManager entityManager;
