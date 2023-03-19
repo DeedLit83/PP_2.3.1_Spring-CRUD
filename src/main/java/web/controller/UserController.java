@@ -16,8 +16,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/view")
-    public String index(Model model) {
+    @GetMapping("/")
+    public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "view/index";
     }
@@ -37,7 +37,7 @@ public class UserController {
     @PostMapping("/view")
     public String create(@ModelAttribute("user") User user) {
         userService.saveUser(user);
-        return "redirect:/view";
+        return "redirect:/";
 
     }
 
@@ -50,12 +50,12 @@ public class UserController {
     @PatchMapping("/view/{id}")
     public String update(@ModelAttribute("user") User user) {
         userService.updateUser(user);
-        return "redirect:/view";
+        return "redirect:/";
     }
 
     @DeleteMapping("/view/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.removeUserById(id);
-        return "redirect:/view";
+        return "redirect:/";
     }
 }
